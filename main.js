@@ -85,6 +85,6 @@ app.get('/', async (req, res) => {
     }
 });
 
-app.listen(3000, () => {
-    console.log("💻 Dashboard accessible sur http://localhost:3000");
+app.listen(8084, () => {
+    console.log("💻 Dashboard accessible sur http://localhost:8084");
 });
