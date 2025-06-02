@@ -26,22 +26,55 @@ app.get('/', async (req, res) => {
         <!DOCTYPE html>
         <html lang="fr">
         <head>
-            <meta charset="UTF-8">
-            <title>Stats Raspberry Pi</title>
-            <meta http-equiv="refresh" content="2">
-            <style>
-                body { font-family: sans-serif; background: #111; color: #0f0; text-align: center; padding: 2em; }
-                h1 { color: #0ff; }
-                .stat { font-size: 1.5em; margin-top: 1em; }
-            </style>
+        <meta charset="UTF-8">
+        <title>Stats Raspberry Pi</title>
+        <meta http-equiv="refresh" content="2">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
         </head>
-        <body>
-            <h1>📊 Statistiques de la machine</h1>
-            <div class="stat">🧠 RAM utilisée : ${((mem.total - mem.available) / 1024 ** 2).toFixed(0)} / ${(mem.total / 1024 ** 2).toFixed(0)} Mo (${((1 - mem.available / mem.total) * 100).toFixed(1)}%)</div>
-            <div class="stat">📦 Cache + buffers : ${(mem.buffers + mem.cached) / 1024 ** 2 | 0} Mo</div>
-            <div class="stat">🖥️ CPU : ${cpu.currentLoad.toFixed(1)}%</div>
-            <div class="stat">💾 Disque : ${(disk[0].used / 1024 ** 3).toFixed(1)} / ${(disk[0].size / 1024 ** 3).toFixed(1)} Go (${disk[0].use.toFixed(1)}%)</div>
-            <div class="stat">🌡️ Température : ${temperature}</div>
+        <body class="bg-gray-900 text-green-400 font-mono min-h-screen flex flex-col items-center justify-center p-6">
+        <h1 class="text-3xl sm:text-4xl font-bold text-cyan-400 mb-8">📊 Statistiques de la machine</h1>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-4xl">
+
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-md border border-green-700">
+            <div class="flex items-center gap-3 text-xl">
+                🧠 <span class="font-semibold">RAM utilisée</span>
+            </div>
+            <p class="mt-2 text-lg">${((mem.total - mem.available) / 1024 ** 2).toFixed(0)} / ${(mem.total / 1024 ** 2).toFixed(0)} Mo</p>
+            <p class="text-sm text-green-300">(${((1 - mem.available / mem.total) * 100).toFixed(1)}%)</p>
+            </div>
+
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-md border border-green-700">
+            <div class="flex items-center gap-3 text-xl">
+                📦 <span class="font-semibold">Cache & Buffers</span>
+            </div>
+            <p class="mt-2 text-lg">${(mem.buffers + mem.cached) / 1024 ** 2 | 0} Mo</p>
+            </div>
+
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-md border border-green-700">
+            <div class="flex items-center gap-3 text-xl">
+                🖥️ <span class="font-semibold">Charge CPU</span>
+            </div>
+            <p class="mt-2 text-lg">${cpu.currentLoad.toFixed(1)}%</p>
+            </div>
+
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-md border border-green-700">
+            <div class="flex items-center gap-3 text-xl">
+                💾 <span class="font-semibold">Disque utilisé</span>
+            </div>
+            <p class="mt-2 text-lg">${(disk[0].used / 1024 ** 3).toFixed(1)} / ${(disk[0].size / 1024 ** 3).toFixed(1)} Go</p>
+            <p class="text-sm text-green-300">(${disk[0].use.toFixed(1)}%)</p>
+            </div>
+
+            <div class="bg-gray-800 p-6 rounded-2xl shadow-md border border-green-700 sm:col-span-2">
+            <div class="flex items-center gap-3 text-xl">
+                🌡️ <span class="font-semibold">Température</span>
+            </div>
+            <p class="mt-2 text-lg">${temperature}</p>
+            </div>
+
+        </div>
         </body>
         </html>
         `;
