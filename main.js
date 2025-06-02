@@ -37,7 +37,8 @@ app.get('/', async (req, res) => {
         </head>
         <body>
             <h1>📊 Statistiques de la machine</h1>
-            <div class="stat">🧠 RAM : ${(mem.used / 1024 ** 2).toFixed(0)} / ${(mem.total / 1024 ** 2).toFixed(0)} Mo (${(mem.used / mem.total * 100).toFixed(1)}%)</div>
+            <div class="stat">🧠 RAM utilisée : ${((mem.total - mem.available) / 1024 ** 2).toFixed(0)} / ${(mem.total / 1024 ** 2).toFixed(0)} Mo (${((1 - mem.available / mem.total) * 100).toFixed(1)}%)</div>
+            <div class="stat">📦 Cache + buffers : ${(mem.buffers + mem.cached) / 1024 ** 2 | 0} Mo</div>
             <div class="stat">🖥️ CPU : ${cpu.currentLoad.toFixed(1)}%</div>
             <div class="stat">💾 Disque : ${(disk[0].used / 1024 ** 3).toFixed(1)} / ${(disk[0].size / 1024 ** 3).toFixed(1)} Go (${disk[0].use.toFixed(1)}%)</div>
             <div class="stat">🌡️ Température : ${temperature}</div>
